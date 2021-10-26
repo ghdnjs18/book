@@ -36,12 +36,14 @@ BookRouter.put('/:id', (req, res) => {
         res.json({status:204, msg: `책 ${req.body.title}의 내용이 변경되었습니다.`, book})
     })
 })
-BookRouter.put('/:ISBN', (req, res) => {
-    Book.findByIdAndUpdate(req.params.ISBN, req.body, {new:true}, (err, book) => {
-        if(err) throw err;
-        res.json({status:204, msg: `책 ${req.body.title}의 내용이 변경되었습니다.`, book})
-    })
-})
+// json position 오류가 난다. ISBN의 타입이 문제인듯한데 int로 만들어도 소용이없다.
+// 그러면 한번더 "" 만들어 String으로 만들어보면 어떨까?
+// BookRouter.put('/:ISBN', (req, res) => {
+//     Book.findByIdAndUpdate(req.params.ISBN, req.body, {new:true}, (err, book) => {
+//         if(err) throw err;
+//         res.json({status:204, msg: `책 ${req.body.title}의 내용이 변경되었습니다.`, book})
+//     })
+// })
 
 BookRouter.delete('/:id', (req, res) => {
     Book.findByIdAndDelete(req.params.id, (err, book) => {

@@ -1,18 +1,26 @@
 var express = require('express');
 var app = express();
+var cors = require('cors');
 var logger = require('morgan');
 var mongmoos = require('mongoose');
 var routes = require('./src/routes');
 
+var corsOptions = {
+    origin: '*',
+    Credential: true
+}
+
 // mongoDB 연결
-const CONNECT_URL = 'mongodb://localhost:27017/book_project'
+const CONNECT_URL = 'mongodb://localhost:27017/kor_dic_db'
 mongmoos.connect(CONNECT_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log("몽고DB 연결중..."))
   .catch(e => console.log('데이터베이스 연결 실패 !: ${e}'))
 
+
 // 미들웨어
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(logger('tiny'));
 
